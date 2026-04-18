@@ -1,5 +1,4 @@
 # Kişisel dosyaların kazara GitHub'a yüklenmesini engelle
-*.pdf
 *.docx
 *.xlsx
 *.pptx
