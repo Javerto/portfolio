@@ -296,6 +296,13 @@ a {
   margin-right: auto;
 }
 
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .hero__cta {
   display: inline-flex;
   align-items: center;
@@ -326,6 +333,19 @@ a {
 
 .hero__cta:hover svg {
   transform: translateY(2px);
+}
+
+.hero__cta--secondary {
+  background-color: transparent;
+  color: var(--color-text);
+  border: 2px solid var(--color-border);
+}
+
+.hero__cta--secondary:hover {
+  background-color: var(--color-bg-alt);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  box-shadow: none;
 }
 
 /* --- Hakkımda Bölümü --- */
@@ -404,6 +424,43 @@ a {
   flex-grow: 1;
   height: 1px;
   background-color: var(--color-border);
+}
+
+.projects__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.projects__filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.filter-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.filter-btn.active {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
 }
 
 /* --- Projeler Bölümü --- */
@@ -489,6 +546,115 @@ a {
   height: 16px;
 }
 
+/* --- İletişim Bölümü --- */
+.contact {
+  background-color: var(--color-bg-alt);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.contact__subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+
+.contact__desc {
+  color: var(--color-text-light);
+  margin-bottom: 32px;
+}
+
+.contact__details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact__item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.contact__icon {
+  width: 44px;
+  height: 44px;
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.contact__item h4 {
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.contact__item p {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.contact__form {
+  background-color: var(--color-card-bg);
+  padding: 40px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.form__group {
+  margin-bottom: 20px;
+}
+
+.form__group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.form__group input,
+.form__group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form__group input:focus,
+.form__group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(75, 123, 229, 0.1);
+}
+
+.form__submit {
+  width: 100%;
+  justify-content: center;
+}
+
+.form__status {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.form__status.success { color: #10b981; }
+.form__status.error { color: #ef4444; }
+
 /* --- Footer --- */
 .footer {
   padding: 40px 24px;
@@ -569,6 +735,15 @@ a {
 
   .projects__grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact__form {
+    padding: 24px;
   }
 }
 

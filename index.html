@@ -11,6 +11,8 @@
     content="Muhasebe ve finans alanında uzmanlaşmış profesyonel portfolyo sitesi. Maliyet analizi, bütçe planlama ve finansal raporlama projeleri." />
 
   <link rel="stylesheet" href="style.css" />
+  <!-- EmailJS Kütüphanesi -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -28,6 +30,7 @@
         <li><a href="#hero">Ana Sayfa</a></li>
         <li><a href="#about">Hakkımda</a></li>
         <li><a href="#projects">Projeler</a></li>
+        <li><a href="#contact">İletişim</a></li>
       </ul>
 
       <div class="theme-switcher">
@@ -64,13 +67,21 @@
         geliştiriyorum.
       </p>
 
-      <a href="#projects" class="hero__cta">
-        Projelerimi İncele
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-          stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </a>
+      <div class="hero__actions">
+        <a href="#projects" class="hero__cta">
+          Projelerimi İncele
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </a>
+        <a href="yigit-cv.pdf" download class="hero__cta hero__cta--secondary">
+          CV İndir
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </a>
+      </div>
 
     </div>
   </section>
@@ -183,9 +194,78 @@
       </div>
 
       <!-- ALT BÖLÜM 2: GitHub Repoları -->
-      <h3 class="projects__subtitle" style="margin-top: 60px;">GitHub Çalışmaları</h3>
+      <div class="projects__header" style="margin-top: 60px;">
+        <h3 class="projects__subtitle">GitHub Çalışmaları</h3>
+        <div class="projects__filters" id="project-filters">
+          <button class="filter-btn active" data-filter="all">Tümü</button>
+          <button class="filter-btn" data-filter="Python">Python</button>
+          <button class="filter-btn" data-filter="JavaScript">JS</button>
+          <button class="filter-btn" data-filter="HTML">HTML/CSS</button>
+        </div>
+      </div>
       <div class="projects__grid" id="github-projects-grid">
         <!-- GitHub projeleri JS ile buraya dolacak -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       İLETİŞİM BÖLÜMÜ
+       ============================================ -->
+  <section class="section contact" id="contact">
+    <div class="section__container">
+
+      <p class="section__label">İletişim</p>
+      <h2 class="section__title">Benimle İletişime Geç</h2>
+      <div class="section__divider"></div>
+
+      <div class="contact__grid">
+        <div class="contact__info reveal">
+          <h3 class="contact__subtitle">Sorunuz mu var?</h3>
+          <p class="contact__desc">
+            İş birliği teklifleri, projeler veya sadece selam vermek için bana mesaj gönderebilirsiniz. 
+            En kısa sürede dönüş yapacağım.
+          </p>
+          <div class="contact__details">
+            <div class="contact__item">
+              <span class="contact__icon">📧</span>
+              <div>
+                <h4>E-posta</h4>
+                <p>yigittenekeci@email.com</p>
+              </div>
+            </div>
+            <div class="contact__item">
+              <span class="contact__icon">📍</span>
+              <div>
+                <h4>Konum</h4>
+                <p>İstanbul, Türkiye</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact__form reveal" id="contact-form">
+          <div class="form__group">
+            <label for="name">Ad Soyad</label>
+            <input type="text" id="name" name="from_name" placeholder="Adınız" required>
+          </div>
+          <div class="form__group">
+            <label for="email">E-posta</label>
+            <input type="email" id="email" name="reply_to" placeholder="E-posta adresiniz" required>
+          </div>
+          <div class="form__group">
+            <label for="message">Mesaj</label>
+            <textarea id="message" name="message" rows="5" placeholder="Mesajınız..." required></textarea>
+          </div>
+          <button type="submit" class="hero__cta form__submit">
+            Gönder
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+          <div id="form-status" class="form__status"></div>
+        </form>
       </div>
 
     </div>

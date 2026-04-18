@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeBtns = document.querySelectorAll('.theme-btn');
   const rootElement = document.documentElement;
   
-  // LocalStorage'dan kayıtlı temayı oku, yoksa 'warm' kullan
   const savedTheme = localStorage.getItem('portfolioTheme') || 'warm';
   
   function applyTheme(themeName) {
@@ -63,87 +62,49 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('portfolioTheme', themeName);
   }
 
-  // Sayfa yüklendiğinde hafızadaki temayı uygula
   applyTheme(savedTheme);
 
-  // Buton tıklamalarını dinle
   themeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       applyTheme(btn.getAttribute('data-set'));
     });
   });
 
-  // --- GitHub API ile Repoları Çekme ---
+  // --- GitHub API ile Repoları Çekme ve Filtreleme ---
+  let allRepos = [];
   fetchGithubRepos();
-});
 
-async function fetchGithubRepos() {
-  const username = 'Javerto';
-  const projectsGrid = document.getElementById('github-projects-grid');
-  
-  if (!projectsGrid) return;
+  async function fetchGithubRepos() {
+    const username = 'Javerto';
+    const projectsGrid = document.getElementById('github-projects-grid');
+    if (!projectsGrid) return;
 
-  try {
-    // GitHub API'ye istek at (En son güncellenenleri getir)
-    const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&direction=desc`);
-    const repos = await response.json();
+    try {
+      const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&direction=desc`);
+      const repos = await response.json();
 
-    // Sadece portfolyo reposu hariç public repoları filtrele
-    const validRepos = repos
-      .filter(repo => !repo.fork && repo.name !== 'Javerto.github.io') 
-      .slice(0, 4); 
+      allRepos = repos.filter(repo => !repo.fork && repo.name !== 'Javerto.github.io');
+      displayRepos(allRepos.slice(0, 6)); // Başlangıçta 6 tanesini göster
 
-    let indexCount = 0; // GitHub projeleri için numaralandırmayı sıfırdan başlat
+      setupFilters();
+    } catch (error) {
+      console.error('GitHub repoları çekilirken bir hata oluştu:', error);
+    }
+  }
 
-    for (const repo of validRepos) {
-      indexCount++;
-      const repoNum = indexCount < 10 ? `0${indexCount}` : indexCount;
-      
-      // Dil bilgisini tag olarak ayarla (Bazen API'den null döner)
+  function displayRepos(reposToShow) {
+    const projectsGrid = document.getElementById('github-projects-grid');
+    projectsGrid.innerHTML = '';
+
+    reposToShow.forEach((repo, index) => {
+      const repoNum = (index + 1) < 10 ? `0${index + 1}` : index + 1;
       const languageTag = repo.language ? `<span class="tag">${repo.language}</span>` : '';
-
-      // Açıklama Metni: Önce repo.description kontrol et, yoksa README dosyasını çek
-      let descText = repo.description;
       
-      if (!descText) {
-        try {
-          // default_branch kullanarak ana daldaki README.md'yi çeker
-          const readmeRes = await fetch(`https://raw.githubusercontent.com/${username}/${repo.name}/${repo.default_branch}/README.md`);
-          if (readmeRes.ok) {
-            const readmeText = await readmeRes.text();
-            
-            // Markdown karakterlerini, başlıkları, resimleri ve linkleri basitçe temizle
-            let cleanText = readmeText
-              .replace(/#.*$/gm, '') // Başlıkları sil
-              .replace(/!\[.*?\]\(.*?\)/g, '') // Resimleri sil
-              .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Linklerin sadece metnini bırak
-              .replace(/<[^>]*>/g, '') // HTML etiketlerini sil
-              .replace(/[\r\n]+/g, ' ') // Satır atlamalarını boşluğa çevir
-              .trim();
-
-            if (cleanText.length > 150) {
-              descText = cleanText.substring(0, 150) + '...';
-            } else if (cleanText.length > 0) {
-              descText = cleanText;
-            } else {
-              descText = 'Bu proje için henüz bir açıklama girilmemiş.';
-            }
-          } else {
-            descText = 'Bu proje için henüz bir açıklama girilmemiş.';
-          }
-        } catch (e) {
-          descText = 'Bu proje için henüz bir açıklama girilmemiş.';
-        }
-      }
-
-      // Yeni kartın HTML'ini oluştur
       const repoHtml = `
         <div class="project-card reveal revealed">
           <span class="project-card__number">GH-${repoNum}</span>
           <h3 class="project-card__title">${repo.name.replace(/-/g, ' ')}</h3>
-          <p class="project-card__desc">
-            ${descText}
-          </p>
+          <p class="project-card__desc">${repo.description || 'Bu proje için açıklama bulunmuyor.'}</p>
           <div class="project-card__tags">
             ${languageTag}
             <span class="tag">GitHub Repo</span>
@@ -156,12 +117,72 @@ async function fetchGithubRepos() {
           </a>
         </div>
       `;
-
-      // Grid'in sonuna ekle
       projectsGrid.insertAdjacentHTML('beforeend', repoHtml);
-    }
-
-  } catch (error) {
-    console.error('GitHub repoları çekilirken bir hata oluştu:', error);
+    });
   }
-}
+
+  function setupFilters() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+        if (filter === 'all') {
+          displayRepos(allRepos.slice(0, 6));
+        } else {
+          const filtered = allRepos.filter(repo => 
+            repo.language && repo.language.toLowerCase() === filter.toLowerCase()
+          );
+          displayRepos(filtered);
+        }
+      });
+    });
+  }
+
+  // --- EmailJS İletişim Formu ---
+  const contactForm = document.getElementById('contact-form');
+  const formStatus = document.getElementById('form-status');
+
+  // EmailJS'i kendi Public Key'inizle başlatın
+  // emailjs.init("YOUR_PUBLIC_KEY"); 
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const submitBtn = contactForm.querySelector('.form__submit');
+      const originalBtnText = submitBtn.innerHTML;
+      
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Gönderiliyor...';
+      formStatus.textContent = '';
+
+      // NOT: Aşağıdaki kodun çalışması için EmailJS hesabınızdan SERVICE_ID ve TEMPLATE_ID almalısınız.
+      // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+      //   .then(() => {
+      //     formStatus.className = 'form__status success';
+      //     formStatus.textContent = 'Mesajınız başarıyla gönderildi!';
+      //     contactForm.reset();
+      //   }, (error) => {
+      //     formStatus.className = 'form__status error';
+      //     formStatus.textContent = 'Bir hata oluştu. Lütfen tekrar deneyin.';
+      //     console.error('EmailJS Hatası:', error);
+      //   })
+      //   .finally(() => {
+      //     submitBtn.disabled = false;
+      //     submitBtn.innerHTML = originalBtnText;
+      //   });
+
+      // Şimdilik test için simüle ediyoruz:
+      setTimeout(() => {
+        formStatus.className = 'form__status success';
+        formStatus.textContent = 'EmailJS kurulumu yapıldığında bu mesaj iletilecektir.';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        contactForm.reset();
+      }, 1500);
+    });
+  }
+});
