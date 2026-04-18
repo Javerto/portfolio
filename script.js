@@ -59,7 +59,7 @@ async function fetchGithubRepos() {
 
     // Sadece portfolyo reposu hariç public repoları filtrele (istediğiniz sayıyı per_page ile de alabilirsiniz, şimdilik ilk 6 repo)
     const validRepos = repos
-      .filter(repo => !repo.fork && repo.name !== 'portfolio') // fork olanları ve portfolio reposunu gizle
+      .filter(repo => !repo.fork && repo.name !== 'Javerto.github.io') // fork olanları ve portfolio reposunu gizle
       .slice(0, 4); // Ekranda kalabalık yapmasın diye şimdilik en güncel 4 repoyu ekliyorum
 
     let indexCount = projectsGrid.children.length; // Manuel eklenenlerden sonraki numaralandırma için
