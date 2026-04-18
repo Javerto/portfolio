@@ -389,6 +389,23 @@ a {
   line-height: 1.6;
 }
 
+.projects__subtitle {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.projects__subtitle::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background-color: var(--color-border);
+}
+
 /* --- Projeler Bölümü --- */
 .projects__grid {
   display: grid;

@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchGithubRepos() {
   const username = 'Javerto';
-  const projectsGrid = document.getElementById('projects-grid');
+  const projectsGrid = document.getElementById('github-projects-grid');
   
   if (!projectsGrid) return;
 
@@ -88,12 +88,12 @@ async function fetchGithubRepos() {
     const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&direction=desc`);
     const repos = await response.json();
 
-    // Sadece portfolyo reposu hariç public repoları filtrele (istediğiniz sayıyı per_page ile de alabilirsiniz, şimdilik ilk 6 repo)
+    // Sadece portfolyo reposu hariç public repoları filtrele
     const validRepos = repos
-      .filter(repo => !repo.fork && repo.name !== 'Javerto.github.io') // fork olanları ve portfolio reposunu gizle
-      .slice(0, 4); // Ekranda kalabalık yapmasın diye şimdilik en güncel 4 repoyu ekliyorum
+      .filter(repo => !repo.fork && repo.name !== 'Javerto.github.io') 
+      .slice(0, 4); 
 
-    let indexCount = projectsGrid.children.length; // Manuel eklenenlerden sonraki numaralandırma için
+    let indexCount = 0; // GitHub projeleri için numaralandırmayı sıfırdan başlat
 
     for (const repo of validRepos) {
       indexCount++;
@@ -139,7 +139,7 @@ async function fetchGithubRepos() {
       // Yeni kartın HTML'ini oluştur
       const repoHtml = `
         <div class="project-card reveal revealed">
-          <span class="project-card__number">${repoNum} (GitHub)</span>
+          <span class="project-card__number">GH-${repoNum}</span>
           <h3 class="project-card__title">${repo.name.replace(/-/g, ' ')}</h3>
           <p class="project-card__desc">
             ${descText}
