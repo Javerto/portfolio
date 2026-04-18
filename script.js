@@ -42,6 +42,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealElements.forEach(el => observer.observe(el));
 
+  // --- Tema Seçici (Theme Switcher) ---
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const rootElement = document.documentElement;
+  
+  // LocalStorage'dan kayıtlı temayı oku, yoksa 'warm' kullan
+  const savedTheme = localStorage.getItem('portfolioTheme') || 'warm';
+  
+  function applyTheme(themeName) {
+    if (themeName === 'light') {
+      rootElement.removeAttribute('data-theme');
+    } else {
+      rootElement.setAttribute('data-theme', themeName);
+    }
+    
+    themeBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-set') === themeName);
+    });
+    
+    localStorage.setItem('portfolioTheme', themeName);
+  }
+
+  // Sayfa yüklendiğinde hafızadaki temayı uygula
+  applyTheme(savedTheme);
+
+  // Buton tıklamalarını dinle
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      applyTheme(btn.getAttribute('data-set'));
+    });
+  });
+
   // --- GitHub API ile Repoları Çekme ---
   fetchGithubRepos();
 });

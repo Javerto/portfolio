@@ -7,6 +7,28 @@
 
 /* --- CSS Değişkenleri (Renk Paleti) --- */
 :root {
+  /* LIGHT THEME (Varsayılan Beyaz) */
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8fafc;
+  --color-text: #1e293b;
+  --color-text-light: #64748b;
+  --color-accent: #4b7be5;
+  --color-accent-hover: #3a62c4;
+  --color-border: #e2e8f0;
+  --color-card-bg: #ffffff;
+  --color-tag-bg: #eef2ff;
+  --color-tag-text: #4b7be5;
+  --color-nav-bg: rgba(255, 255, 255, 0.85);
+  --color-nav-mobile: rgba(255, 255, 255, 0.97);
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --max-width: 1100px;
+  --radius: 10px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --transition: 0.25s ease;
+}
+
+[data-theme="warm"] {
   --color-bg: #faf8f5;
   --color-bg-alt: #f1efe9;
   --color-text: #2d2a26;
@@ -17,12 +39,23 @@
   --color-card-bg: #ffffff;
   --color-tag-bg: #fdf6e3;
   --color-tag-text: #b8860b;
-  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --max-width: 1100px;
-  --radius: 10px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --transition: 0.25s ease;
+  --color-nav-bg: rgba(250, 248, 245, 0.85);
+  --color-nav-mobile: rgba(250, 248, 245, 0.97);
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-bg-alt: #1e293b;
+  --color-text: #f8fafc;
+  --color-text-light: #cbd5e1;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+  --color-border: #334155;
+  --color-card-bg: #1e293b;
+  --color-tag-bg: #334155;
+  --color-tag-text: #60a5fa;
+  --color-nav-bg: rgba(15, 23, 42, 0.85);
+  --color-nav-mobile: rgba(15, 23, 42, 0.97);
 }
 
 /* --- Reset & Temel --- */
@@ -64,7 +97,7 @@ a {
   left: 0;
   width: 100%;
   z-index: 100;
-  background-color: rgba(250, 248, 245, 0.85);
+  background-color: var(--color-nav-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
@@ -131,6 +164,31 @@ a {
 .navbar__links a:hover::after {
   width: 100%;
 }
+
+/* Theme Switcher */
+.theme-switcher {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.theme-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.theme-btn.active {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
+}
+
+.theme-btn[data-set="light"] { background-color: #ffffff; border: 1px solid #ccc; }
+.theme-btn[data-set="warm"] { background-color: #faf8f5; border: 1px solid #e6e2d8; }
+.theme-btn[data-set="dark"] { background-color: #0f172a; border: 1px solid #334155; }
 
 /* Hamburger Menü (Mobil) */
 .navbar__hamburger {
@@ -448,7 +506,7 @@ a {
     left: 0;
     width: 100%;
     flex-direction: column;
-    background-color: rgba(250, 248, 245, 0.97);
+    background-color: var(--color-nav-mobile);
     backdrop-filter: blur(12px);
     padding: 24px;
     gap: 20px;
