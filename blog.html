@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Yiğit Tenekeci</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">Yiğit<span>.</span></a>
+      <ul class="navbar__links" id="nav-links">
+        <li><a href="index.html#hero">Ana Sayfa</a></li>
+        <li><a href="index.html#about">Hakkımda</a></li>
+        <li><a href="index.html#projects">Projeler</a></li>
+        <li><a href="index.html#contact">İletişim</a></li>
+      </ul>
+      <div class="theme-switcher">
+        <button class="theme-btn" data-set="light" title="Açık Tema"></button>
+        <button class="theme-btn active" data-set="warm" title="Sıcak Tema"></button>
+        <button class="theme-btn" data-set="dark" title="Koyu Tema"></button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section blog" id="blog">
+    <div class="section__container">
+      <p class="section__label">Sürekli Gelişim</p>
+      <h2 class="section__title">Haftalık Veri Notları</h2>
+      <div class="section__divider"></div>
+      <div class="blog__grid">
+        <!-- Blog Post 1 -->
+        <article class="blog-card reveal">
+          <div class="blog-card__date">21 Nisan 2026</div>
+          <h3 class="blog-card__title">Veri Temizliği: Neden Analiz Süresinin %80'ini Alır?</h3>
+          <p class="blog-card__desc">Veri biliminde en kritik aşama olan veri temizleme (data cleaning) sürecinin önemi ve dikkat edilmesi gerekenler üzerine kısa bir değerlendirme...</p>
+          <a href="javascript:void(0)" class="blog-card__link">Devamını Oku →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="footer__text">&copy; 2026 <a href="index.html#hero">Yiğit Tenekeci</a> — Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <div id="global-modal" class="modal">
+    <div class="modal-content">
+      <span id="close-modal" class="modal-close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+</body>
+</html>

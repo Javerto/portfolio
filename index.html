@@ -75,7 +75,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
         </a>
-        <a href="yigit-cv.pdf" download class="hero__cta hero__cta--secondary">
+        <a href="yigit-cv.pdf" target="_blank" download class="hero__cta hero__cta--secondary">
           CV İndir
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -115,34 +115,40 @@
         </div>
 
         <!-- Sağ Taraf: Öne Çıkan Yetenekler -->
-        <div class="about__highlights reveal">
-
-          <!-- BURAYA KENDİ YETENEKLERİNİZİ YAZIN -->
-          <div class="highlight-card">
-            <div class="highlight-card__icon">📊</div>
-            <h3 class="highlight-card__title">Veri Analitiği</h3>
-            <p class="highlight-card__desc">Verileri analiz etme, raporlama ve anlamlandırma süreçleri</p>
+        
+          <div class="about__highlights">
+            <div class="highlight-category">
+              <h4 class="highlight-category__title">Diller & Araçlar</h4>
+              <div class="highlight-category__grid">
+                <div class="highlight-card">
+                  <div class="highlight-card__icon">📈</div>
+                  <h3 class="highlight-card__title">Python & ETL</h3>
+                  <p class="highlight-card__desc">Python ile veri süreçlerinin otomasyonu ve ETL işlemleri</p>
+                </div>
+                <div class="highlight-card">
+                  <div class="highlight-card__icon">💼</div>
+                  <h3 class="highlight-card__title">Excel & VBA</h3>
+                  <p class="highlight-card__desc">Gelişmiş Excel kullanımı ve makrolar ile süreç otomasyonu</p>
+                </div>
+              </div>
+            </div>
+            <div class="highlight-category">
+              <h4 class="highlight-category__title">Veri & Analiz</h4>
+              <div class="highlight-category__grid">
+                <div class="highlight-card">
+                  <div class="highlight-card__icon">📊</div>
+                  <h3 class="highlight-card__title">Veri Analitiği</h3>
+                  <p class="highlight-card__desc">Verileri analiz etme, raporlama ve anlamlandırma süreçleri</p>
+                </div>
+                <div class="highlight-card">
+                  <div class="highlight-card__icon">⚙️</div>
+                  <h3 class="highlight-card__title">Veritabanı & İş Zekası</h3>
+                  <p class="highlight-card__desc">SQL sorgulama yeteneği ve Tableau ile veri görselleştirme</p>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="highlight-card">
-            <div class="highlight-card__icon">📈</div>
-            <h3 class="highlight-card__title">Python &amp; ETL</h3>
-            <p class="highlight-card__desc">Python ile veri süreçlerinin otomasyonu ve ETL işlemleri</p>
-          </div>
-
-          <div class="highlight-card">
-            <div class="highlight-card__icon">💼</div>
-            <h3 class="highlight-card__title">Excel &amp; VBA</h3>
-            <p class="highlight-card__desc">Gelişmiş Excel kullanımı ve makrolar ile süreç otomasyonu</p>
-          </div>
-
-          <div class="highlight-card">
-            <div class="highlight-card__icon">⚙️</div>
-            <h3 class="highlight-card__title">Veritabanı &amp; İş Zekası</h3>
-            <p class="highlight-card__desc">SQL sorgulama yeteneği ve Tableau ile veri görselleştirme</p>
-          </div>
-
-        </div>
+</div>
       </div>
     </div>
   </section>
@@ -174,6 +180,7 @@
             <span class="tag">VBA Makro</span>
             <span class="tag">Süreç İyileştirme</span>
           </div>
+          <button class="project-card__case-study">Vaka Analizini Gör</button>
         </div>
 
         <!-- PROJE 2 -->
@@ -190,6 +197,7 @@
             <span class="tag">ETL</span>
             <span class="tag">Veri Ambarı</span>
           </div>
+          <button class="project-card__case-study">Vaka Analizini Gör</button>
         </div>
       </div>
 
@@ -229,7 +237,25 @@
   <!-- ============================================
        İLETİŞİM BÖLÜMÜ
        ============================================ -->
-  <section class="section contact" id="contact">
+  
+  
+  <section class="section learning" id="learning">
+    <div class="section__container">
+      <p class="section__label">Sürekli Gelişim</p>
+      <h2 class="section__title">Haftalık Veri Notları</h2>
+      <div class="section__divider"></div>
+      <div class="learning__grid">
+        <div class="learning-card reveal">
+          <div class="learning-card__date">Güncel Notlar</div>
+          <h3 class="learning-card__title">Sürekli Öğrenme Yolculuğu</h3>
+          <p class="learning-card__desc">Sektörel analizler, veri analitiği ipuçları ve öğrendiğim yeni araçlar hakkında düzenli notlar paylaşıyorum.</p>
+          <a href="blog.html" class="project-card__case-study" style="margin-top: 15px; display: block; text-align: center;">Blog'a Git →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="section contact" id="contact">
     <div class="section__container">
 
       <p class="section__label">İletişim</p>
@@ -298,6 +324,16 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <!-- Case Study Modal -->
+  <div id="global-modal" class="modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div class="modal-content" style="background-color: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius); width: 90%; max-width: 800px; max-height: 80vh; overflow-y: auto; padding: 40px; position: relative; color: var(--color-text);">
+      <span id="close-modal" style="position: absolute; right: 20px; top: 20px; cursor: pointer; font-size: 1.5rem; color: var(--color-text-light);">&times;</span>
+      <div id="modal-body">
+        <!-- Content injected by JS -->
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
