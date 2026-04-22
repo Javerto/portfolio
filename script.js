@@ -45,6 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
     else rootElement.setAttribute('data-theme', themeName);
     themeBtns.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-set') === themeName));
     localStorage.setItem('portfolioTheme', themeName);
+
+    // Streamlit Iframe Tema Güncelleme
+    const iframe = document.getElementById('financial-dashboard');
+    if (iframe) {
+      const baseUrl = "https://financial-etl-pipeline-lybpeg9k44r57fzxweigec.streamlit.app/?embed=true";
+      const streamlitTheme = (themeName === 'dark') ? 'dark_theme' : 'light_theme';
+      iframe.src = `${baseUrl}&embed_options=${streamlitTheme}`;
+    }
   }
   applyTheme(savedTheme);
   themeBtns.forEach(btn => btn.addEventListener('click', () => applyTheme(btn.getAttribute('data-set'))));
