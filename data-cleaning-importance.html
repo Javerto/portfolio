@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veri Temizliği: Neden Analiz Süresinin %80'ini Alır? | Yiğit Tenekeci</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .blog-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .blog-content h1 {
+      color: var(--color-text);
+      margin-bottom: 1rem;
+    }
+    .blog-content h2 {
+      color: var(--color-text);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    .blog-content h3 {
+      color: var(--color-text-light);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .blog-content code {
+      background: var(--color-bg-alt);
+      color: var(--color-text);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      border: 1px solid var(--color-border);
+    }
+    .blog-content pre {
+      background: var(--color-bg-alt);
+      color: var(--color-text);
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      border: 1px solid var(--color-border);
+    }
+    .blog-content .date {
+      color: var(--color-text-light);
+      font-style: italic;
+      margin-bottom: 2rem;
+    }
+    .blog-content .highlight {
+      background: var(--color-bg-alt);
+      color: var(--color-text);
+      padding: 1rem;
+      border-left: 4px solid var(--color-accent);
+      margin: 1rem 0;
+      border-radius: 5px;
+    }
+    .blog-content .stat-box {
+      background: var(--color-bg-alt);
+      border-left: 4px solid var(--color-accent);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 5px;
+      color: var(--color-text);
+    }
+    .blog-content .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--color-accent);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">Yiğit<span>.</span></a>
+      <ul class="navbar__links" id="nav-links">
+        <li><a href="index.html#hero">Ana Sayfa</a></li>
+        <li><a href="index.html#about">Hakkımda</a></li>
+        <li><a href="index.html#projects">Projeler</a></li>
+        <li><a href="index.html#contact">İletişim</a></li>
+      </ul>
+      <div class="theme-switcher">
+        <button class="theme-btn" data-set="light" title="Açık Tema"></button>
+        <button class="theme-btn active" data-set="warm" title="Sıcak Tema"></button>
+        <button class="theme-btn" data-set="dark" title="Koyu Tema"></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="blog-content">
+    <h1>Veri Temizliği: Neden Analiz Süresinin %80'ini Alır?</h1>
+    <div class="date">Yayınlanma Tarihi: 24 Nisan 2026</div>
+
+    <div class="stat-box">
+      <div class="stat-number">%80</div>
+      <p><strong>Araştırmalar gösteriyor ki:</strong> Veri bilimcilerin zamanının %80'i veri temizleme ve hazırlama süreçlerinde geçiyor.</p>
+    </div>
+
+    <h2>Giriş: Veri Temizliğinin Kritik Önemi</h2>
+    
+    <p>Veri bilimi genellikle karmaşık algoritmalar ve gelişmiş makine öğrenmesi modelleriyle ilişkilendirilir. Ancak, veri biliminin en zaman alıcı yönü model geliştirmek değil, veriyi hazırlamaktır. <strong>"Garbage in, garbage out"</strong> prensibi burada devreye giriyor: Kirli veriyle çalışmak, ne kadar gelişmiş model kullanırsanız kullanın, güvenilmez sonuçlar üretir.</p>
+
+    <div class="highlight">
+      <strong>Forrester Araştırması (2023):</strong>
+      <ul>
+        <li>Şirketlerin %25'inden fazlası, kötü veri kalitesi nedeniyle yılda 5 milyon dolardan fazla kayıp yaşıyor</li>
+        <li>Veri temizleme süreçleri otomatikleştirilmediğinde bu maliyetler katlanıyor</li>
+      </ul>
+    </div>
+
+    <h2>Veri Temizliği Nedir?</h2>
+    
+    <p>Veri temizliği, ham verideki hataları, tutarsızlıkları ve kalite sorunlarını belirleyip düzelterek analiz için uygun hale getirme sürecidir. Bu süreç şunları içerir:</p>
+    
+    <ul>
+      <li><strong>Eksik değerlerin yönetimi:</strong> Boş alanlar, null değerler</li>
+      <li><strong>Tekrar eden kayıtların temizlenmesi:</strong> Yinelenen müşteri veya işlem kayıtları</li>
+      <li><strong>Yapısal hataların düzeltilmesi:</strong> Format tutarsızlıkları, yazım hataları</li>
+      <li><strong>Aykırı değerlerin tespiti:</strong> İş mantığına uymayan uç değerler</li>
+      <li><strong>Veri tipi standardizasyonu:</strong> Tutarlı veri tipleri ve formatlar</li>
+    </ul>
+
+    <h2>Veri Temizliğinin Analiz Süresindeki %80 Payı: Gerçek mi?</h2>
+    
+    <p>Bu istatistik ilk bakışta abartılı görünebilir, ancak pratikte oldukça gerçekçidir. İşte nedenleri:</p>
+
+    <h3>1. Veri Kaynaklarının Çeşitliliği</h3>
+    
+    <p>Modern işletmeler veriyi onlarca farklı kaynaktan toplar:</p>
+    
+    <ul>
+      <li>CRM sistemleri</li>
+      <li>ERP yazılımları</li>
+      <li>Web analitik araçları</li>
+      <li>Sosyal medya API'ları</li>
+      <li>IoT sensörleri</li>
+      <li>Harici veri sağlayıcılar</li>
+    </ul>
+
+    <p>Her kaynağın kendi veri yapısı, formatı ve kalite standartları vardır.</p>
+
+    <h3>2. Veri Kalitesi Sorunlarının Çeşitliliği</h3>
+    
+    <div class="highlight">
+      <strong>En Yaygın Veri Kalitesi Sorunları:</strong>
+      <ul>
+        <li>Eksik değerler (%15-30 oranında)</li>
+        <li>Tekrar eden kayıtlar (%5-15)</li>
+        <li>Format tutarsızlıkları (%10-20)</li>
+        <li>Aykırı değerler (%3-10)</li>
+        <li>Yapısal hatalar (%5-15)</li>
+      </ul>
+    </div>
+
+    <h2>Veri Temizliğinin Temel Teknikleri</h2>
+
+    <h3>1. Format Standardizasyonu</h3>
+    
+    <p>Tutarsız formatlar veriyi sıralama, filtreleme ve birleştirme işlemlerini zorlaştırır.</p>
+
+    <pre><code># Python'da tarih formatı standardizasyonu
+import pandas as pd
+from datetime import datetime
+
+# Farklı formatlarda tarihler
+dates = ['01/02/26', '2026-02-01', 'Feb 1, 2026', '01.02.2026']
+
+# Standardize et
+standard_dates = []
+for date in dates:
+    try:
+        # Farklı formatları deneyerek standart formata dönüştür
+        parsed_date = pd.to_datetime(date, infer_datetime_format=True)
+        standard_dates.append(parsed_date.strftime('%Y-%m-%d'))
+    except:
+        standard_dates.append('Geçersiz tarih')
+
+print(standard_dates)  # ['2026-01-02', '2026-02-01', '2026-02-01', '2026-01-02']</code></pre>
+
+    <h3>2. Tekrar Eden Kayıtların Temizlenmesi</h3>
+    
+    <p>Tekrar eden kayıtlar metrikleri şişirir ve analizleri çarpıtır.</p>
+
+    <pre><code># Pandas ile tekrar eden kayıtları temizleme
+import pandas as pd
+
+# Örnek veri seti
+data = {
+    'customer_id': [101, 102, 101, 103, 102],
+    'name': ['Ali', 'Ayşe', 'Ali', 'Mehmet', 'Ayşe'],
+    'purchase_amount': [150, 200, 150, 300, 200]
+}
+
+df = pd.DataFrame(data)
+
+# Tekrar eden kayıtları kaldır
+cleaned_df = df.drop_duplicates(subset=['customer_id'], keep='last')
+print(f"Önceki kayıt sayısı: {len(df)}")
+print(f"Sonraki kayıt sayısı: {len(cleaned_df)}")</code></pre>
+
+    <h3>3. Eksik Değerlerin Yönetimi</h3>
+    
+    <p>Eksik değerler için tek bir "doğru" yaklaşım yoktur. Bağlama göre değişir:</p>
+
+    <pre><code># Eksik değer stratejileri
+import pandas as pd
+import numpy as np
+
+# Örnek veri
+sales_data = pd.DataFrame({
+    'month': ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+    'revenue': [1000, np.nan, 1200, np.nan, 1500],
+    'customers': [50, 55, np.nan, 60, 65]
+})
+
+# Strateji 1: Ortalama ile doldurma
+sales_data['revenue'].fillna(sales_data['revenue'].mean(), inplace=True)
+
+# Strateji 2: Önceki değerle doldurma
+sales_data['customers'].fillna(method='ffill', inplace=True)
+
+# Strateji 3: Satırı tamamen kaldırma
+sales_data_cleaned = sales_data.dropna()</code></pre>
+
+    <h2>Veri Temizleme Süreci: Adım Adım Yaklaşım</h2>
+
+    <h3>Adım 1: Veri Profili Oluşturma</h3>
+    
+    <p>Değişiklik yapmadan önce veriyi anlamak için profilleme yapın:</p>
+
+    <pre><code># Veri profilleme
+import pandas as pd
+
+def data_profile(df):
+    profile = {
+        'total_rows': len(df),
+        'total_columns': len(df.columns),
+        'missing_values': df.isnull().sum().sum(),
+        'missing_percentage': (df.isnull().sum().sum() / (len(df) * len(df.columns))) * 100,
+        'duplicate_rows': df.duplicated().sum(),
+        'data_types': df.dtypes.to_dict()
+    }
+    return profile
+
+# Profili görüntüle
+profile = data_profile(df)
+for key, value in profile.items():
+    print(f"{key}: {value}")</code></pre>
+
+    <h3>Adım 2: İlgisiz Gözlemleri Kaldırma</h3>
+    
+    <p>Analizle ilgisi olmayan sütun ve satırları temizleyin.</p>
+
+    <h3>Adım 3: Yapısal ve Tutarlılık Hatalarını Düzeltme</h3>
+    
+    <p>Formatları standardize edin ve yapısal hataları düzeltin.</p>
+
+    <h3>Adım 4: Eksik Değerleri Yönetme</h3>
+    
+    <p>Bağlama uygun strateji seçin ve uygulayın.</p>
+
+    <h3>Adım 5: Aykırı Değerleri Tespit Etme ve Yönetme</h3>
+    
+    <pre><code># Aykırı değer tespiti
+import numpy as np
+
+def detect_outliers_iqr(data):
+    Q1 = np.percentile(data, 25)
+    Q3 = np.percentile(data, 75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    
+    outliers = [x for x in data if x < lower_bound or x > upper_bound]
+    return outliers
+
+# Örnek kullanım
+revenue_data = [1000, 1200, 1100, 15000, 1050, 1150]  # 15000 aykırı değer
+outliers = detect_outliers_iqr(revenue_data)
+print(f"Aykırı değerler: {outliers}")</code></pre>
+
+    <h3>Adım 6: Doğrulama ve Belgeleme</h3>
+    
+    <p>Temizlenmiş veriyi doğrulayın ve yapılan değişiklikleri belgeleyin.</p>
+
+    <h2>Veri Temizliği Araçları ve Teknolojileri</h2>
+
+    <h3>Python Kütüphaneleri</h3>
+    
+    <ul>
+      <li><strong>Pandas:</strong> Veri manipülasyonu ve temizleme</li>
+      <li><strong>NumPy:</strong> Sayısal işlemler ve aykırı değer tespiti</li>
+      <li><strong>Scikit-learn:</strong> Ön işleme ve imputation</li>
+      <li><strong>Great Expectations:</strong> Veri kalite kontrolü</li>
+    </ul>
+
+    <h3>Enterprise Çözümler</h3>
+    
+    <ul>
+      <li><strong>Monte Carlo:</strong> Veri gözlemlenebilirliği</li>
+      <li><strong>OvalEdge:</strong> Veri kataloglama ve kalite yönetimi</li>
+      <li><strong>OpenRefine:</strong> Etkileşimli veri temizleme</li>
+      <li><strong>Trifacta:</strong> Görsel veri hazırlama</li>
+    </ul>
+
+    <h2>Veri Temizliğinde En İyi Uygulamalar</h2>
+
+    <div class="highlight">
+      <strong>Başarılı Veri Temizliği İçin:</strong>
+      <ul>
+        <li><strong>Ham veriyi koruyun:</strong> Temizlenmiş kopyalarla çalışın</li>
+        <li><strong>Tutarlı kurallar uygulayın:</strong> Tüm veri setinde aynı stratejileri kullanın</li>
+        <li><strong>Belgeleyin:</strong> Yapılan değişiklikleri ve nedenlerini kaydedin</li>
+        <li><strong>Otomatikleştirin:</strong> Tekrarlayan işlemleri script'lere dönüştürün</li>
+        <li><strong>Doğrulayın:</strong> Temizleme sonrası kalite kontrol yapın</li>
+      </ul>
+    </div>
+
+    <h2>Veri Temizliğinin İş Değeri</h2>
+    
+    <p>Temiz veri sadece teknik bir gereklilik değil, iş değeri yaratır:</p>
+    
+    <ul>
+      <li><strong>Doğru karar alma:</strong> Güvenilir analizlerle stratejik kararlar</li>
+      <li><strong>Operasyonel verimlilik:</strong> Hata ayıklama sürelerinde azalma</li>
+      <li><strong>Müşteri memnuniyeti:</strong> Doğru segmentasyon ve kişiselleştirme</li>
+      <li><strong>Maliyet tasarrufu:</strong> Yanlış kararlardan kaynaklanan kayıpların önlenmesi</li>
+    </ul>
+
+    <h2>Gelecek Trendleri: Otomasyon ve Yapay Zeka</h2>
+    
+    <p>Veri temizliği alanında yapay zeka ve otomasyon önemli gelişmeler sunuyor:</p>
+    
+    <ul>
+      <li><strong>Akıllı imputation:</strong> ML modelleriyle eksik değer tahmini</li>
+      <li><strong>Otomatik anomali tespiti:</strong> Anomaly detection algoritmaları</li>
+      <li><strong>Veri kalite izleme:</strong> Real-time data quality monitoring</li>
+      <li><strong>Self-healing veri pipeline'ları:</strong> Otomatik hata düzeltme</li>
+    </ul>
+
+    <h2>Sonuç: Veri Temizliği Bir Yatırımdır</h2>
+    
+    <p>Veri temizliği genellikle göz ardı edilen ancak veri biliminin en kritik aşamasıdır. Temiz veri olmadan, gelişmiş analitik veya makine öğrenmesi modelleri anlamlı içgörüler sağlayamaz.</p>
+
+    <div class="stat-box">
+      <div class="stat-number">10x</div>
+      <p><strong>Verimlilik kazanımı:</strong> İyi yapılandırılmış veri temizleme süreçleri, analiz verimliliğini 10 kata kadar artırabilir.</p>
+    </div>
+
+    <p>Veri temizliğine yapılan zaman ve kaynak yatırımı, daha güvenilir analizler, daha doğru tahminler ve daha etkili iş kararları olarak geri döner. Bu nedenle, veri temizliği bir angarya değil, değer yaratan bir yatırımdır.</p>
+
+    <p><strong>Bir sonraki adım:</strong> Veri temizleme süreçlerinizi otomatikleştirmek ve standardize etmek için bir veri kalite çerçevesi oluşturun.</p>
+
+    <p style="margin-top: 3rem; text-align: center; color: var(--color-text-light);">
+      Bu içerik 24 Nisan 2026 tarihinde yayınlanmıştır.<br>
+      Sorularınız için: <a href="mailto:yigit@javerto.com" style="color: var(--color-accent);">yigit@javerto.com</a>
+    </p>
+  </div>
+
+  <footer class="footer">
+    <p class="footer__text">&copy; 2026 <a href="index.html#hero">Yiğit Tenekeci</a> — Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
